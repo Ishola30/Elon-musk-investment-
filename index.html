@@ -6,7 +6,7 @@
     <title>SpaceX Investment Bank (SIB)</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* --- DESIGN SYSTEM & SYSTEM THEMING --- */
+        /* --- DESIGN SYSTEM & COLORS --- */
         :root {
             --bg-space: #06070d;
             --bg-surface: #0b0d19;
@@ -38,9 +38,9 @@
             margin: 0;
         }
 
-        /* --- STAGE SCREEN CONTROL GRAPHICS --- */
+        /* --- SCREEN STATE DISPLAY SYSTEM --- */
         .screen {
-            display: none; /* Explicitly hides all stages by default */
+            display: none; /* Hides every screen layer by default */
             height: 100vh;
             width: 100vw;
             position: absolute;
@@ -50,10 +50,10 @@
         }
 
         .active {
-            display: flex !important; /* Overrides hide property when activated by the script clock */
+            display: flex !important; /* Forces visible state when appended by script */
         }
 
-        /* --- STAGE 1: SIB LOADING COUNTDOWN VIEW --- */
+        /* --- SCREEN 1: SIB LOADING SPLASH (5 SECONDS) --- */
         #splash-screen {
             background: radial-gradient(circle at center, #111625 0%, #06070d 100%);
             justify-content: center;
@@ -90,7 +90,7 @@
             letter-spacing: 1px;
         }
 
-        /* --- STAGE 2: ACCESS TERMINAL LOGIN VIEW --- */
+        /* --- SCREEN 2: SYSTEM LOGIN INTERFACE --- */
         #login-screen {
             justify-content: center;
             align-items: center;
@@ -171,7 +171,7 @@
             display: none;
         }
 
-        /* --- STAGE 3: THE MAIN CORE BALANCES DASHBOARD (RESPONSIVE) --- */
+        /* --- SCREEN 3: HIGH-CLEARANCE BALANCES DASHBOARD --- */
         #dashboard-screen {
             flex-direction: row;
         }
@@ -226,7 +226,7 @@
             gap: 20px;
         }
 
-        /* Balance Presentation Matrix */
+        /* 20 Million Euro Balance Card Layout */
         .main-balance-card {
             background: linear-gradient(135deg, #0b112c 0%, #0b0d19 100%);
             border: 1px solid rgba(0, 180, 216, 0.3);
@@ -258,7 +258,7 @@
             margin-left: 10px;
         }
 
-        /* Adaptive Split Panels */
+        /* Responsive Layout Panels Splits */
         .dash-split {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -281,7 +281,7 @@
             margin-bottom: 15px;
         }
 
-        /* Forms Configuration */
+        /* Live Wire Simulator Input Styles */
         .interactive-form input {
             width: 100%;
             padding: 12px;
@@ -297,7 +297,7 @@
             border-color: var(--accent-glow);
         }
 
-        /* Tables Engineering */
+        /* Ledger Tables Layout formatting */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -321,7 +321,7 @@
             text-transform: uppercase;
         }
 
-        /* Header Navigation for Mobile Screens */
+        /* Mobile View Navigation Header Bar */
         .mobile-header {
             display: none;
             width: 100%;
@@ -332,7 +332,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* --- MOBILE LAYOUT TRANSLATIONS --- */
+        /* --- RESPONSIVE RESOLUTIONS ADJUSTMENTS --- */
         @media (max-width: 768px) {
             #dashboard-screen { flex-direction: column; }
             sidebar { display: none; }
@@ -448,7 +448,7 @@
             </div>
 
             <div class="card" style="margin-top: 10px;">
-                <h4>Asset Value Yield Progression</h4>
+                <h4>Asset Value Yield Progression Matrix</h4>
                 <div style="position: relative; height: 180px; width: 100%;">
                     <canvas id="yieldChart"></canvas>
                 </div>
@@ -457,7 +457,7 @@
     </div>
 
     <script>
-        // GATEWAY ASSIGNMENTS FROM PROMPT INSTRUCTIONS
+        // STRICT USER ACCOUNT VERIFICATION CREDENTIAL PARAMETERS
         const SECURE_USER = "Micheal";
         const SECURE_PASS = "Tapner";
         
@@ -469,21 +469,22 @@
         const loginScreen = document.getElementById('login-screen');
         const dashboardScreen = document.getElementById('dashboard-screen');
 
+        // Prevent initial blank text flashing frame
         countdownElement.textContent = secondsLeft;
 
-        // 1. Splash Screen Timer Sequence Engine
+        // 1. Initial 5 Second Splash Timer Loop Flow
         const timer = setInterval(() => {
             secondsLeft--;
             countdownElement.textContent = secondsLeft;
 
             if (secondsLeft <= 0) {
                 clearInterval(timer);
-                splashScreen.classList.remove('active'); // Drops the logo overlay screen out of layout view
-                loginScreen.classList.add('active');    // Pulls up the Login Input fields grid layout
+                splashScreen.classList.remove('active'); // Drops the countdown screen layer out of screen bounds
+                loginScreen.classList.add('active');    // Unveils authentication inputs block dynamically
             }
         }, 1000);
 
-        // 2. Security Login Module
+        // 2. Gateway Identity Access Controller Evaluation Module
         function handleLogin(event) {
             event.preventDefault(); 
             
@@ -492,12 +493,12 @@
             const errorMsg = document.getElementById('error-message');
             const userDisplay = document.getElementById('user-display');
 
-            // Validates against prompt constraints
+            // Evaluates inputs against credentials strings
             if (userInput === SECURE_USER && passInput === SECURE_PASS) {
                 userDisplay.textContent = "Micheal J Tapner"; // Maps user display string explicitly
                 loginScreen.classList.remove('active');
-                dashboardScreen.classList.add('active');       // Opens dashboard interface space
-                renderAnalyticsChart();                         // Builds the trends tracking script canvas
+                dashboardScreen.classList.add('active');       // Grants viewport entrance to dashboard layout
+                renderAnalyticsChart();                         // Initializes background chart engine vectors
             } else {
                 errorMsg.style.display = 'block';
                 setTimeout(() => { errorMsg.style.display = 'none'; }, 4000);
@@ -519,7 +520,7 @@
             globalBalance -= amount;
             document.getElementById('balance-amount').textContent = globalBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-            // Creates and pushes dynamic data tables columns
+            // Builds new rows dynamically straight into account history grid array tracking
             const ledgerBody = document.getElementById('ledger-entries');
             const newRow = document.createElement('tr');
             
@@ -534,13 +535,13 @@
             document.getElementById('transfer-dest').value = '';
         }
 
-        // 4. Data Chart Rendering Logic
+        // 4. Charting Visualization Script Engine
         function renderAnalyticsChart() {
             const ctx = document.getElementById('yieldChart').getContext('2d');
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Current'],
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Current Orbit'],
                     datasets: [{
                         data: [12000000, 14500000, 13100000, 18400000, 19200000, 20000000],
                         borderColor: '#00b4d8',
@@ -564,6 +565,7 @@
     </script>
 </body>
 </html>
+
 
 
 
