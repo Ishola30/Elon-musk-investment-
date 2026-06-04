@@ -40,7 +40,7 @@
 
         /* --- SCREEN STATE DISPLAY SYSTEM --- */
         .screen {
-            display: none; /* Hides every screen layer by default */
+            display: none; 
             height: 100vh;
             width: 100vw;
             position: absolute;
@@ -50,7 +50,7 @@
         }
 
         .active {
-            display: flex !important; /* Forces visible state when appended by script */
+            display: flex !important; 
         }
 
         /* --- SCREEN 1: SIB LOADING SPLASH (5 SECONDS) --- */
@@ -226,7 +226,7 @@
             gap: 20px;
         }
 
-        /* 20 Million Euro Balance Card Layout */
+        /* Balance Presentation Layout */
         .main-balance-card {
             background: linear-gradient(135deg, #0b112c 0%, #0b0d19 100%);
             border: 1px solid rgba(0, 180, 216, 0.3);
@@ -258,7 +258,7 @@
             margin-left: 10px;
         }
 
-        /* Responsive Layout Panels Splits */
+        /* Split Panels Layout */
         .dash-split {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -281,7 +281,7 @@
             margin-bottom: 15px;
         }
 
-        /* Live Wire Simulator Input Styles */
+        /* Form Controls */
         .interactive-form input {
             width: 100%;
             padding: 12px;
@@ -297,7 +297,7 @@
             border-color: var(--accent-glow);
         }
 
-        /* Ledger Tables Layout formatting */
+        /* Data Tables formatting */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -321,7 +321,7 @@
             text-transform: uppercase;
         }
 
-        /* Mobile View Navigation Header Bar */
+        /* Mobile Layout Navigation Header Bar */
         .mobile-header {
             display: none;
             width: 100%;
@@ -332,7 +332,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* --- RESPONSIVE RESOLUTIONS ADJUSTMENTS --- */
+        /* --- RESPONSIVE WORKSPACE CHANGES --- */
         @media (max-width: 768px) {
             #dashboard-screen { flex-direction: column; }
             sidebar { display: none; }
@@ -457,9 +457,9 @@
     </div>
 
     <script>
-        // STRICT USER ACCOUNT VERIFICATION CREDENTIAL PARAMETERS
-        const SECURE_USER = "Micheal";
-        const SECURE_PASS = "Tapner";
+        // STRICT USER ACCOUNT VERIFICATION PARAMETERS
+        const SECURE_USER = "micheal"; // Evaluated as lowercase for error protection
+        const SECURE_PASS = "tapner"; // Evaluated as lowercase for error protection
         
         let secondsLeft = 5; 
         let globalBalance = 20000000.00;
@@ -469,7 +469,6 @@
         const loginScreen = document.getElementById('login-screen');
         const dashboardScreen = document.getElementById('dashboard-screen');
 
-        // Prevent initial blank text flashing frame
         countdownElement.textContent = secondsLeft;
 
         // 1. Initial 5 Second Splash Timer Loop Flow
@@ -479,8 +478,8 @@
 
             if (secondsLeft <= 0) {
                 clearInterval(timer);
-                splashScreen.classList.remove('active'); // Drops the countdown screen layer out of screen bounds
-                loginScreen.classList.add('active');    // Unveils authentication inputs block dynamically
+                splashScreen.classList.remove('active'); 
+                loginScreen.classList.add('active');    
             }
         }, 1000);
 
@@ -488,17 +487,20 @@
         function handleLogin(event) {
             event.preventDefault(); 
             
-            const userInput = document.getElementById('username').value;
-            const passInput = document.getElementById('password').value;
+            // .trim() drops any accidental trailing spaces from keyboard inputs
+            // .toLowerCase() makes it accept typing regardless of casing issues
+            const userInput = document.getElementById('username').value.trim().toLowerCase();
+            const passInput = document.getElementById('password').value.trim().toLowerCase();
+            
             const errorMsg = document.getElementById('error-message');
             const userDisplay = document.getElementById('user-display');
 
-            // Evaluates inputs against credentials strings
+            // Verification check
             if (userInput === SECURE_USER && passInput === SECURE_PASS) {
-                userDisplay.textContent = "Micheal J Tapner"; // Maps user display string explicitly
+                userDisplay.textContent = "Micheal J Tapner"; 
                 loginScreen.classList.remove('active');
-                dashboardScreen.classList.add('active');       // Grants viewport entrance to dashboard layout
-                renderAnalyticsChart();                         // Initializes background chart engine vectors
+                dashboardScreen.classList.add('active');       
+                renderAnalyticsChart();                         
             } else {
                 errorMsg.style.display = 'block';
                 setTimeout(() => { errorMsg.style.display = 'none'; }, 4000);
@@ -520,7 +522,6 @@
             globalBalance -= amount;
             document.getElementById('balance-amount').textContent = globalBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-            // Builds new rows dynamically straight into account history grid array tracking
             const ledgerBody = document.getElementById('ledger-entries');
             const newRow = document.createElement('tr');
             
@@ -565,6 +566,7 @@
     </script>
 </body>
 </html>
+
 
 
 
